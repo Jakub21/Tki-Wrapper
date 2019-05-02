@@ -95,7 +95,7 @@ def styleWidgets():
         background=background, foreground=foreground)
 ```
 
-![Screenshot](screenshots/screenshot2_2.PNG)
+![Screenshot](screenshots/screenshot1_2.PNG)
 
 Styles were added. Execute the code again, check results.
 
