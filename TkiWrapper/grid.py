@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkWrapper.namespace import Namespace
+from TkiWrapper.namespace import Namespace
 class Grid:
     def __init__(self):
         self.pointer = Namespace({
@@ -12,7 +12,7 @@ class Grid:
             'paddingX': 0,
             'paddingY': 0,
         })
-        self.incrementWrap = 10
+        self.incrementWrap = 1
 
     def resetPointer(self):
         self.pointer = Namespace({

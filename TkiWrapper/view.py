@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-from tkWrapper.namespace import Namespace
+from TkiWrapper.namespace import Namespace
 
 class View:
     def __init__(self, root):
@@ -40,7 +40,6 @@ class View:
         widget = ttk.Label(self.frame, text=label)
         widget.grid(**grid.getParams(stretch))
         self.widgets.append(widget)
-        return widget
 
     def addHeading(self, grid, label, level=2, stretch=1):
         if level < 1 or level > 3:
@@ -48,13 +47,11 @@ class View:
         widget = ttk.Label(self.frame, text=label, style=f'heading{level}.TLabel')
         widget.grid(**grid.getParams(stretch))
         self.widgets.append(widget)
-        return widget
 
     def addSeparator(self, grid, stretch=2):
         widget = ttk.Separator(self.frame)
         widget.grid(**grid.getParams(stretch))
         self.widgets.append(widget)
-        return widget
 
     #----------------------------------------------------------------
     # Data Output widgets
@@ -64,7 +61,6 @@ class View:
         widget.grid(**grid.getParams(stretch))
         self.root.outputTexts[outputKey] = widget
         self.widgets.append(widget)
-        return widget
 
     def addBoolOut(self, grid, outputKey, stretch=1):
         widget = ttk.Checkbutton(self.frame, style='output.TCheckbutton')
@@ -73,7 +69,6 @@ class View:
         widget.invoke()
         self.root.outputBools[outputKey] = widget
         self.widgets.append(widget)
-        return widget
 
     #----------------------------------------------------------------
     # Data Input widgets
@@ -86,7 +81,6 @@ class View:
         widget.grid(**grid.getParams(stretch))
         self.root.buttons[btnKey] = widget
         self.widgets.append(widget)
-        return widget
 
     def addFileButton(self, grid, btnKey, type, label, *args, enabled=True, stretch=1, **kwargs):
         onclick = lambda: self.root.onFileButton(btnKey, type, *args, **kwargs)
@@ -95,7 +89,6 @@ class View:
         widget.grid(**grid.getParams(stretch))
         self.root.fileButtons[btnKey] = widget
         self.widgets.append(widget)
-        return widget
 
     def addInput(self, grid, inpKey, password=False, enabled=True, stretch=1):
         show = '*' if password else ''
@@ -105,7 +98,6 @@ class View:
         widget.grid(**grid.getParams(stretch))
         self.root.inputs[inpKey] = widget
         self.widgets.append(widget)
-        return widget
 
     def addRadio(self, grid, groupKey, value, label, enabled=True, stretch=1):
         try: group = self.root.radioGroups[groupKey]
@@ -118,7 +110,6 @@ class View:
             variable=group.variable, command=command, state=state)
         widget.grid(**grid.getParams(stretch))
         self.widgets.append(widget)
-        return widget
 
     def addBoolIn(self, grid, boxKey, enabled=True, stretch=1):
         widget = ttk.Checkbutton(self.frame)
@@ -126,15 +117,13 @@ class View:
         widget.grid(**grid.getParams(stretch))
         self.root.boolIns[boxKey] = widget
         self.widgets.append(widget)
-        return widget
 
     #----------------------------------------------------------------
     # Other widget related methods
 
-    def addWidget(self, grid, widget):
-        widget.grid(**grid.getParams())
+    def addWidget(self, grid, widget, stretch=1):
+        widget.grid(**grid.getParams(stretch))
         self.widgets.append(widget)
-        return widget
 
     def createRadioGroup(self, key, varType, command=None):
         if varType not in ['int', 'flt', 'str']:

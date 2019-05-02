@@ -107,8 +107,8 @@ class Root:
         try: return self.files[btnKey]
         except KeyError: pass
 
-    def getBoolVal(self, boxKey):
-        try: return 'selected' in self.boolIns[boxKey].state()
+    def getBoolVal(self, key):
+        try: return 'selected' in self.boolIns[key].state()
         except KeyError: pass
 
     #----------------------------------------------------------------
