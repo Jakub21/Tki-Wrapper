@@ -43,7 +43,7 @@ if __name__ == '__main__':
         # You can add other things your app should do every frame
 ```
 
-![Screenshot](docs/screenshots/screenshot1_1.png)
+![Screenshot](screenshots/screenshot1_1.png)
 
 This app lacks styling, configuration of expansion weights and many more to look good.
 Unfortunatelly **styling wrapper is not yet done** and usage of raw TkInter styles is required.
@@ -95,7 +95,7 @@ def styleWidgets():
         background=background, foreground=foreground)
 ```
 
-![Screenshot](docs/screenshots/screenshot2_2.png)
+![Screenshot](screenshots/screenshot2_2.png)
 
 Styles were added. Execute the code again, check results.
 
@@ -155,7 +155,7 @@ if __name__ == '__main__':
         root.update()
 ```
 
-![Screenshot](docs/screenshots/screenshot2.png)
+![Screenshot](screenshots/screenshot2.png)
 
 This code creates much better looking application.
 Still, there is not much content in there.
@@ -193,7 +193,7 @@ def onClickReverse():
     root.setOutputText('textOutput', text) # Put text in output widget
 ```
 
-![Screenshot](docs/screenshots/screenshot3.png)
+![Screenshot](screenshots/screenshot3.png)
 
 As you can see reading and writting values to widgets is very easy.
 You have to remember what keys you typed in adding function.
@@ -244,9 +244,9 @@ def createSettingsView(root):
     view.addLabel(grid, 'Label 5')
 ```
 
-![Screenshot](docs/screenshots/screenshot4_1.png)
+![Screenshot](screenshots/screenshot4_1.png)
 
-![Screenshot](docs/screenshots/screenshot4_2.png)
+![Screenshot](screenshots/screenshot4_2.png)
 
 There is not much content in there, just some placeholder labels.
 You can check how it works now.
@@ -262,7 +262,7 @@ This can be done by adding this line just below root title is defined.
 root.setMinSize(350, 250) # Minimum size is 350px width and 250px height
 ```
 
-![Screenshot](docs/screenshots/screenshot5.png)
+![Screenshot](screenshots/screenshot5.png)
 
 ### Conclusion
 The package offers much more complex functionalities.

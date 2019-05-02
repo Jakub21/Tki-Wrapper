@@ -16,7 +16,7 @@ Package was not uploaded to PIP.
 
 ### Docs
 To get started with package check
-[Package Guide](docs/PackageGuide.md)
+[Package Guide](docs/packageGuide.md)
 
 For list of all classes, their methods and other details see
-[Package Rerefence](docs/PackageReference.md)
+[Package Rerefence](docs/packageReference.md)
