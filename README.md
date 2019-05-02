@@ -4,8 +4,8 @@ Create grid-based GUIs faster and easier
 
 Jakub21, April 2019  
 Python 3.7  
-Visit [My GitHub][MyGithub]  
-Contribute to [Package Repository][PackageGithub]
+Visit [My GitHub](https://github.com/Jakub21)  
+Contribute to [Package Repository](https://github.com/Jakub21/TkiWrapper)
 
 
 ### Setup
@@ -16,14 +16,7 @@ Package was not uploaded to PIP.
 
 ### Docs
 To get started with package check
-[Package Guide][PackageGuide]
+[Package Guide](docs/PackageGuide.md)
 
 For list of all classes, their methods and other details see
-[Package Rerefence][PackageReference]
-
-
-**Links will be repaired in 2nd commit**
-[MyGithub]: https://github.com/Jakub21
-[PackageGithub]: #
-[PackageGuide]: #
-[PackageReference]: #
+[Package Rerefence](docs/PackageReference.md)
