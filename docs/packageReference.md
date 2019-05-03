@@ -8,6 +8,30 @@ At the end of this document there is Other Info section that contains
 in-depth details that were too long to fit in reference.
 
 
+### Table of contents
+- [`Class Root`](#class-root)
+    - [Constructor](#constructor)
+    - [Root window configuration](#root-window-configuration)
+    - [Managing views](#managing-views)
+    - [Setting values of output widgets](#setting-values-of-output-widgets)
+    - [Reading values of input widgets](#reading-values-of-input-widgets)
+    - [Setting default values of input widgets](#setting-default-values-of-input-widgets)
+    - [Enabling and disabling widgets](#enabling-and-disabling-widgets)
+- [`Class View`](#class-view)
+    - [Constructor](#constructor-1)
+    - [Setting expanstion weights](#setting-expanstion-weights)
+    - [Adding static widgets](#adding-static-widgets)
+    - [Adding output widgets](#adding-output-widgets)
+    - [Adding input widgets](#adding-input-widgets)
+    - [Other widget - related methods](#other-widget---related-methods)
+- [`Class Grid`](#class-grid)
+    - [Constructor](#constructor-2)
+    - [Pointer auto-increment options](#pointer-auto-increment-options)
+    - [Widget pointer manipulation](#widget-pointer-manipulation)
+    - [Setting default parameters](#setting-default-parameters)
+- [Other Info](#other-info)
+
+
 
 # `Class Root`
 Wrapper around `tk.Tk` class. Manages root window parameters.
