@@ -19,7 +19,7 @@ in-depth details that were too long to fit in reference.
     - [Enabling and disabling widgets](#enabling-and-disabling-widgets)
 - [`Class View`](#class-view)
     - [Constructor](#constructor-1)
-    - [Setting expanstion weights](#setting-expanstion-weights)
+    - [Setting expanstion weights](#setting-expansion-weights)
     - [Adding static widgets](#adding-static-widgets)
     - [Adding output widgets](#adding-output-widgets)
     - [Adding input widgets](#adding-input-widgets)
