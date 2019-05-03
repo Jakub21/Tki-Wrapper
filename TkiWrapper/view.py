@@ -109,10 +109,12 @@ class View:
         widget = ttk.Radiobutton(self.frame, text=label, value=value,
             variable=group.variable, command=command, state=state)
         widget.grid(**grid.getParams(stretch))
+        self.root.radios[groupKey][value] = widget
         self.widgets.append(widget)
 
     def addBoolIn(self, grid, boxKey, enabled=True, stretch=1):
         widget = ttk.Checkbutton(self.frame)
+        widget.state(['!alternate'])
         widget.state(['!disabled'] if enabled else ['disabled'])
         widget.grid(**grid.getParams(stretch))
         self.root.boolIns[boxKey] = widget
@@ -134,6 +136,7 @@ class View:
         group = Namespace()
         group.variable = variable
         group.command = command
+        self.root.radios[key] = {}
         self.root.radioGroups[key] = group
 
     #----------------------------------------------------------------

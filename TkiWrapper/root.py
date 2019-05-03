@@ -88,7 +88,7 @@ class Root:
         try: widget = self.outputBools[key]
         except KeyError: return False
         current = 'selected' in widget.state()
-        if (current and not value) or (value and not current):
+        if current != value:
             widget.invoke()
         return True
 
@@ -112,6 +112,25 @@ class Root:
         except KeyError: pass
 
     #----------------------------------------------------------------
+    # Setting output widgets' default values
+
+    def setInputDefault(self, key, value):
+        self.inputs[key].delete(0, tk.END)
+        self.inputs[key].insert(0, value)
+
+    def setRadioDefault(self, groupKey, value):
+        self.radios[groupKey][value].invoke()
+
+    def setFileDefault(self, key, value):
+        self.files[key] = value
+
+    def setBoolDefault(self, key, value):
+        widget = self.boolIns[key]
+        current = 'selected' in widget.state()
+        if current != value:
+            widget.invoke()
+
+    #----------------------------------------------------------------
     # Enabling / disabling input widgets
 
     def buttonState(self, key, state):
@@ -129,8 +148,8 @@ class Root:
         except KeyError: return False
         return True
 
-    def radioState(self, key, state):
-        try: self.radios[key]['state'] = 'normal' if state else 'disabled'
+    def radioState(self, groupKey, radioValue, state):
+        try: self.radios[groupKey][radioValue].state(['!disabled'] if state else ['disabled'])
         except KeyError: return False
         return True
 
