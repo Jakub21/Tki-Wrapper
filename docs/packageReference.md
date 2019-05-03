@@ -8,62 +8,68 @@ At the end of this document there is Other Info section that contains
 in-depth details that were too long to fit in reference.
 
 
-## `Class Root`
+
+# `Class Root`
 Wrapper around `tk.Tk` class. Manages root window parameters.
 In the root window there are 3 main sections: Header, Main View and Footer.
 There can be multiple views added but only one is visible at a time.
 
 Root class also manages all input and output widgets added through views.
 
-### Constructor
+## Constructor
 - No parameters
 
-### Methods
+## Methods
 
-#### `setTitle`
+### Root window configuration
+
+##### `setTitle`
 Sets window title.
 - Parameters
     - str `title` - Title string
 
-#### `setIcon`
+##### `setIcon`
 Sets window icon.
 - Parameters
     - path `path` - Image's path
 
-#### `setWindowSize`
+##### `setWindowSize`
 Sets starting window size. Does not disable window resizing.
 - Parameters
     - int `x` - Window's width
     - int `y` - Window's height
 
-#### `setMinSize`
+##### `setMinSize`
 Sets minimum window size. Window can not be resized under those values.
 - Parameters
     - int `x` - Window's min width
     - int `y` - Window's min height
 
-#### `addView`
+
+### Managing views
+
+##### `addView`
 Adds app view.
 - Parameters
     - View `view` - View object to be added
     - str `key` - View's key
 
-#### `showView`
+##### `showView`
 Hides other views and displays one with specified key.
 - Parameters
     - str `key` - View's key
 
-#### `setHeader`
+##### `setHeader`
 Add view as header. Header is always visible on top of the window.
 - Parameters
     - View `view` - View object to be added as header
 
-#### `setFooter`
+##### `setFooter`
 Add view as footer. Footer is always visible on bottom of the window.
 - Parameters
     - View `view` - View object to be added as header
 
-#### `setSectionWeights`
+##### `setSectionWeights`
 Sets vertical expand weights. By default those values are `0` for header and footer
 and `1` for main view.
 - Parameters
@@ -71,104 +77,147 @@ and `1` for main view.
     - int `content` - Main view's weight
     - int `footer` - Footer's weight
 
-#### `setOutputText`
+
+### Setting values of output widgets
+
+##### `setOutputText`
 Sets value of text output widget.
 - Parameters
     - str `key` - Widget's key
     - str `value` - Text to put in widget
 
-#### `setOutputBool`
+##### `setOutputBool`
 Sets value of boolean output widget.
 - Parameters
     - str `key` - Widget's key
     - bool `value` - Set widget's value to this
 
-#### `getInputVal`
+
+### Reading values of input widgets
+
+##### `getInputVal`
 Returns value of text input widget.
 - Parameters
     - str `key` - Widget's key
 - Returns
     - str - Text written by user
 
-#### `getRadioVal`
+##### `getRadioVal`
 Returns value of radio buttons group.
 - Parameters
     - str `groupKey` - Radio group's key
 - Returns
     - str - Boolean chosen by user
 
-#### `getFileVal`
+##### `getFileVal`
 Returns path that was supplied through file button.
 - Parameters
     - str `btnKey` - Button's key
 - Returns
     - path - Path supplied by user
 
-#### `getBoolVal`
+##### `getBoolVal`
 Returns value of boolean input widget.
 - Parameters
     - str `key` - Widget's key
 - Returns
     - str - Boolean chosen by user
 
-#### `buttonState`
+
+### Setting default values of input widgets
+
+##### `setInputDefault`
+Sets default value of input widget.
+- Parameters
+    - str `key` - Widget's key
+    - str `value` - Text to put in widget
+
+##### `setRadioDefault`
+Sets default value of input widget.
+- Parameters
+    - str `groupKey` - Radio group's key
+    - str `value` - Value of button that is to be marked
+
+##### `setFileDefault`
+Sets default value of input widget.
+- Parameters
+    - str `key` - Widget's key
+    - str `value` - File path
+
+##### `setBoolDefault`
+Sets default value of input widget.
+- Parameters
+    - str `key` - Widget's key
+    - bool `value` - Selected or unselected
+
+
+### Enabling and disabling widgets
+
+##### `buttonState`
 Enables or disables button.
 - Parameters
     - str `key` - Widget's key
     - bool `state` - `True` - Enabled, `False` - Disabled
 
-#### `fileButtonState`
+##### `fileButtonState`
 Enables or disables file button.
 - Parameters
     - str `key` - Widget's key
     - bool `state` - `True` - Enabled, `False` - Disabled
 
-#### `inputState`
+##### `inputState`
 Enables or disables input.
 - Parameters
     - str `key` - Widget's key
     - bool `state` - `True` - Enabled, `False` - Disabled
 
-#### `radioState`
+##### `radioState`
 Enables or disables radio button.
 - Parameters
     - str `key` - Widget's key
     - bool `state` - `True` - Enabled, `False` - Disabled
 
-#### `boxState`
+##### `boxState`
 Enables or disables boolean input widget.
 - Parameters
     - str `key` - Widget's key
     - bool `state` - `True` - Enabled, `False` - Disabled
 
 
-## `Class View`
+
+# `Class View`
 Wrapper around `ttk.Frame` class. View is frame with widgets.
 
-### Constructor
+## Constructor
 - Parameters
     - Root `root` - App's root window
 
-### Methods
+## Methods
 
-#### `setRowWeights`
+
+### Setting expansion weights
+
+##### `setRowWeights`
 Sets expand rate weights or view's rows
 - Parameters
     - int  `*weights` - Expand rates
 
-#### `setColWeights`
+##### `setColWeights`
 Sets expand rate weights or view's columns
 - Parameters
     - int  `*weights` - Expand rates
 
-#### `addLabel`
+
+### Adding static widgets
+
+##### `addLabel`
 Adds label. Label is static a text widget.
 - Parameters
     - Grid `grid` - Object of grid class
     - str `label` - Text to put in widget
     - int `stretch = 1` - See Other Info section
 
-#### `addHeading`
+##### `addHeading`
 Adds heading. Heading is a widget with large static text.
 - Parameters
     - Grid `grid` - Object of grid class
@@ -176,27 +225,33 @@ Adds heading. Heading is a widget with large static text.
     - int `level = 2` - Heading level. Only 1, 2 and 3 are supported.
     - int `stretch = 1` - See Other Info section
 
-#### `addSeparator`
+##### `addSeparator`
 Adds horizontal separator (line).
 - Parameters
     - Grid `grid` - Object of grid class
     - int `stretch = 2` - See Other Info section
 
-#### `addTextOut`
+
+### Adding output widgets
+
+##### `addTextOut`
 Adds text output widget.
 - Parameters
     - Grid `grid` - Object of grid class
     - str `outputKey` - Widget key
     - int `stretch = 1` - See Other Info section
 
-#### `addBoolOut`
+##### `addBoolOut`
 Adds boolean output widget.
 - Parameters
     - Grid `grid` - Object of grid class
     - str `outputKey` - Widget key
     - int `stretch = 1` - See Other Info section
 
-#### `addButton`
+
+### Adding input widgets
+
+##### `addButton`
 Adds button widget.
 - Parameters
     - Grid `grid` - Object of grid class
@@ -208,7 +263,7 @@ Adds button widget.
     - int `stretch = 1` - See Other Info section
     - `**kwargs` - Keywords passed to `onclick` function
 
-#### `addFileButton`
+##### `addFileButton`
 Adds file button widget. File buttons open dialog in which user can select
 file, directory or unexisting file name. To get user's selection call root's
 method `getFileVal` with same key as in this method.
@@ -222,7 +277,7 @@ method `getFileVal` with same key as in this method.
     - int `stretch = 1` - See Other Info section
     - `**kwargs` - Keywords passed to `onclick` function
 
-#### `addInput`
+##### `addInput`
 Adds text input widget.
 - Parameters
     - Grid `grid` - Object of grid class
@@ -231,7 +286,7 @@ Adds text input widget.
     - bool `enabled = True` Create enabled / disabed widget
     - int `stretch = 1` - See Other Info section
 
-#### `addRadio`
+##### `addRadio`
 Adds radio button widget. Note that radio group has to be created first
 with `createRadioGroup` method.
 - Parameters
@@ -242,7 +297,7 @@ with `createRadioGroup` method.
     - bool `enabled = True` Create enabled / disabed widget
     - int `stretch = 1` - See Other Info section
 
-#### `addRadio`
+##### `addBoolIn`
 Adds boolean input widget (clickable checkbox).
 - Parameters
     - Grid `grid` - Object of grid class
@@ -250,40 +305,53 @@ Adds boolean input widget (clickable checkbox).
     - bool `enabled = True` Create enabled / disabed widget
     - int `stretch = 1` - See Other Info section
 
-#### `addWidget`
-Adds supplied widget.
+
+### Other widget - related methods
+
+##### `addWidget`
+Adds pre-defined widget.
 Only use if result can not be recreated with other add methods.
 - Parameters
     - Grid `grid` - Object of grid class
     - TkInter Widget `widget` - Widget to add to view
     - int `stretch = 1` - See Other Info section
 
-#### `createRadioGroup`
+##### `createRadioGroup`
 Creates radio button group. This is required to add radio buttons.
 - Parameters
     - str `key` - Group key
     - str `varType` - Variable type (one of: `int`, `flt`, `str`)
     - func `command` - Command called when button from group is clicked
 
-## `Class Grid`
+
+
+# `Class Grid`
 Grid class manages position, grid span, margin and padding of widgets.
 When widget is added, its position is taken from object of Grid class.
 All parameters set in grid object affect next added widget(s).
 
-Some methods will have "not recommended" mark because they use
-absolute grid coordinates. Using this makes UI more difficult to edit.
-
-### Constructor
+## Constructor
 - No parameters
 
-### Methods
+## Methods
 
-#### `resetPointer`
+### Pointer auto-increment options
+
+##### `setIncrementWrap`
+When pointer auto increment reaches some column it will automatically
+move to column 0 in the next row. This specifies the column.
+- Parameters
+    - int `width` - Amount of columns to wrap at
+
+
+### Widget pointer manipulation
+
+##### `resetPointer`
 Sets pointer position to `x = 0, y = 0` and resets span.
 Recommended to use after creating view when re-using grid in other views.
 - No parameters
 
-#### `setPointer` NOT RECOMMENDED
+##### `setPointer`
 Moves pointer to position and changes span.
 - Parameters
     - int `x` - Grid column to put next widget in
@@ -291,34 +359,30 @@ Moves pointer to position and changes span.
     - int `spanX = 1` - Horizontal span
     - int `spanY = 1` - Vertical span
 
-#### `setSpan`
+##### `setSpan`
 Changes span.
 - Parameters
     - int `spanX = 1` - Horizontal span
     - int `spanY = 1` - Vertical span
 
-#### `newLine`
+##### `newLine`
 Move pointer to column 0 of the row below
 - No parameters
 
-#### `shiftX`
+##### `shiftX`
 Move pointer to the right (Auto wrap enabled)
 - Parameters
     - int `amount = 1` - Amount of steps
 
-#### `setIncrementWrap`
-When pointer auto increment reaches some column it will automatically
-move to column 0 in the next row. This specifies the column.
-- Parameters
-    - int `width` - Amount of columns to wrap at
+### Setting default parameters
 
-#### `setMargin`
+##### `setMargin`
 Sets default widget outer margin
 - Parameters
     - int `x` - Horizontal margin
     - int `y` - Vertical margin
 
-#### `setPadding`
+##### `setPadding`
 Sets default widget inner margin (padding)
 - Parameters
     - int `x` - Horizontal padding
@@ -328,21 +392,21 @@ Sets default widget inner margin (padding)
 
 # Other Info
 
-#### Expand rate weights
+##### Expand rate weights
 Expand rates of section when window is larger than size propagated
 by grid manager (when root's minimum size is not set, app starts with this size).
 `0` means no expansion.
 For example section with weight `2` will expand twice as fast
 as section with weight `1`.
 
-#### `Stretch` widget parameter
+##### `Stretch` widget parameter
 This parameter manages placement and size of widgets.
 With value `1` widgets stick to North-West corner of the grid cell they occupy
 and occupy as small space as they can.
 With value `2` widgets stick to all walls of the cell and expand to fill whole cell.  
 **TODO**: value `0`.
 
-#### File dialog types
+##### File dialog types
 Dialog type affects dialog window title, button labels, wildcards and validation.
 Buttons onclicks call functions from `tkinter.filedialog` module.
 - `openFile` button calls `askopenfile` function
