@@ -1,18 +1,20 @@
 # Reference Index
 TkiWrapper package reference.
 
-Note that there are methods and attributes that are not listed in reference but
+Note that these classes have methods and attributes that are
+not listed in reference but
 modifying / calling them manually may cause wrapper to fail.
 
-At the end of this document there is Other Info section that contains
-in-depth details that were too long to fit in reference.
+There is also Other Info section which contains
+in-depth details that were too long to fit in reference
+but can be found hopeful in understanding some features.
 
 
 ## Classes reference
 - [`Class Root`](reference/root.md)
 - [`Class ViewBase`](reference/viewBase.md)
-    - [`Class View`](reference/view.md) (not available yet)
-    - [`Class Dialog`](reference/dialog.md) (not available yet)
+    - [`Class View`](reference/view.md)
+    - [`Class Dialog`](reference/dialog.md)
 - [`Class Grid`](reference/grid.md)
 
 
@@ -26,7 +28,7 @@ by grid manager (when root's minimum size is not set, app starts with this size)
 For example section with weight `2` will expand twice as fast
 as section with weight `1`.
 
-##### `Stretch` widget parameter
+##### Widget parameter `stretch`
 This parameter manages placement and size of widgets.
 With value `1` widgets stick to North-West corner of the grid cell they occupy
 and occupy as small space as they can.

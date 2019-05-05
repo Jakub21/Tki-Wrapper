@@ -4,12 +4,7 @@ Wrapper around `ttk.Frame` class. View is frame with widgets.
 Note that this class exists for inheritance purposes.
 No instances of this class should be created.
 
-## Constructor
-- Parameters
-    - Root `root` - App's root window
-
 ## Methods
-
 
 ### Setting expansion weights
 
