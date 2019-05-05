@@ -1,7 +1,12 @@
 class Namespace:
     '''Converts dictionaries to namespaces'''
-    def __init__(self, input_dict={}):
+    def __init__(self, **input_dict):
         self.__dict__.update(input_dict)
+    @classmethod
+    def fromDict(cls, input_dict):
+        obj = cls.__new__(cls)
+        obj.__dict__.update(input_dict)
+        return obj
     @classmethod
     def recursive(cls, input_dict={}):
         obj = cls.__new__(cls)

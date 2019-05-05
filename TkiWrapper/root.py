@@ -1,31 +1,31 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog as tkFile
+from TkiWrapper.namespace import Namespace
 
 class Root:
     def __init__(self):
-        self.root = tk.Tk()
-        self.backFrame = ttk.Frame(self.root, style='back.TFrame')
-        self.root.protocol('WM_DELETE_WINDOW', self.quit)
+        self.initTkinter()
+        self.configBackFrame()
         self.views = {}
         self.leave = False
-        self.backFrame.columnconfigure(0, weight=1)
-        self.setSectionWeights(0, 1, 0)
-        self.backFrame.grid(column=0, row=0, sticky=(tk.N, tk.S, tk.E, tk.W))
-        self.root.columnconfigure(0, weight=1)
-        self.root.rowconfigure(0, weight=1)
-        # Input Widgets
-        self.inputs = {}
-        self.buttons = {}
-        self.fileButtons = {}
-        self.radios = {}
-        self.boolIns = {}
-        # Widgets data
-        self.files = {}
-        self.radioGroups = {}
-        # Output Widgets
-        self.outputTexts = {}
-        self.outputBools = {}
+        self.inWidgets = Namespace(
+            texts = {},
+            bools = {},
+            buttons = {},
+            radios = {},
+            fileSelectors = {},
+        )
+        self.outWidgets = Namespace(
+            texts = {},
+        )
+        self.inputData = Namespace(
+            files = {},
+            radioGroups = {},
+        )
+
+    #----------------------------------------------------------------
+    # General core methods
 
     def update(self):
         if not self.leave:
@@ -36,7 +36,22 @@ class Root:
         self.leave = True
 
     #----------------------------------------------------------------
-    # General window settings
+    # Constructor sub-methods
+
+    def initTkinter(self):
+        self.root = tk.Tk()
+        self.backFrame = ttk.Frame(self.root)
+        self.root.protocol('WM_DELETE_WINDOW', self.quit)
+
+    def configBackFrame(self):
+        self.backFrame.columnconfigure(0, weight=1)
+        self.setSectionWeights(0, 1, 0)
+        self.backFrame.grid(column=0, row=0, sticky=(tk.N, tk.S, tk.E, tk.W))
+        self.root.columnconfigure(0, weight=1)
+        self.root.rowconfigure(0, weight=1)
+
+    #----------------------------------------------------------------
+    # General window settings and appearance
 
     def setTitle(self, title):
         self.root.title(title)
@@ -50,113 +65,127 @@ class Root:
     def setMinSize(self, x, y):
         self.root.minsize(x, y)
 
-    #----------------------------------------------------------------
-    # Views related
-
-    def addView(self, view, key):
-        self.views[key] = view
-
-    def setHeader(self, view):
-        self.header = view
-        view.setRole('header')
-        view.show()
-
-    def setFooter(self, view):
-        self.footer = view
-        view.setRole('footer')
-        view.show()
-
-    def showView(self, key):
-        for k, view in self.views.items():
-            view.hide()
-        self.views[key].show()
-
     def setSectionWeights(self, header, content, footer):
         self.backFrame.rowconfigure(0, weight=header)
         self.backFrame.rowconfigure(1, weight=content)
         self.backFrame.rowconfigure(2, weight=footer)
 
     #----------------------------------------------------------------
+    # Adding views
+
+    def setHeader(self, view, role='m'):
+        if role not in ['m', 'd']:
+            raise Exception('Invalid header role')
+        if role == 'm':
+            self.headerMain = view
+        elif role == 'd':
+            self.headerDialog = view
+        view.setDisplayRow(0)
+        view.setSpecial(True)
+
+    def setFooter(self, view, role='m'):
+        if role not in ['m', 'd']:
+            raise Exception('Invalid footer role')
+        if role == 'm':
+            self.footerMain = view
+        elif role == 'd':
+            self.footerDialog = view
+        view.setDisplayRow(2)
+        view.setSpecial(True)
+
+    def addView(self, view, key):
+        self.views[key] = view
+
+    #----------------------------------------------------------------
+    # Displaying views
+
+    def switchToView(self, key):
+        for k, view in self.views.items():
+            view.hide()
+        self.views[key].show()
+        self.currentView = key
+
+    def dialogMode(self, state):
+        if state: # Switch to dialog mode
+            try:
+                self.headerMain.hide()
+                self.headerDialog.show()
+            except AttributeError:
+                try: self.headerMain.show()
+                except AttributeError: pass
+            try:
+                self.footerMain.hide()
+                self.footerDialog.show()
+            except AttributeError:
+                try: self.footerMain.show()
+                except AttributeError: pass
+        else: # Swtich to normal mode
+            try:
+                self.headerMain.show()
+                self.headerDialog.hide()
+            except AttributeError:
+                try: self.headerMain.show()
+                except AttributeError: pass
+            try:
+                self.footerMain.show()
+                self.footerDialog.hide()
+            except AttributeError:
+                try: self.footerMain.show()
+                except AttributeError: pass
+
+    def dialogEnd(self):
+        '''Make this method an onclick of "back" button in dialog header'''
+        self.views[self.currentView].dialogEnd()
+
+    #----------------------------------------------------------------
     # Setting output widgets' values
 
     def setOutputText(self, key, value):
-        try: self.outputTexts[key]['text'] = f'{value}'
-        except KeyError: return False
-        return True
-
-    def setOutputBool(self, key, value):
-        try: widget = self.outputBools[key]
-        except KeyError: return False
-        current = 'selected' in widget.state()
-        if current != value:
-            widget.invoke()
-        return True
+        self.outWidgets.texts[key]['text'] = f'{value}'
 
     #----------------------------------------------------------------
     # Reading input widgets' values
 
-    def getInputVal(self, key):
-        try: return self.inputs[key].get()
-        except KeyError: pass
+    def readInputText(self, key):
+        return self.inWidgets.texts[key].get()
 
-    def getRadioVal(self, groupKey):
-        try: return self.radioGroups[groupKey].variable.get()
-        except KeyError: pass
+    def readInputBool(self, key):
+        return 'selected' in self.inWidgets.bools[key].state()
 
-    def getFileVal(self, btnKey):
-        try: return self.files[btnKey]
-        except KeyError: pass
+    def readInputRadio(self, groupKey):
+        return self.inputData.radioGroups[groupKey].variable.get()
 
-    def getBoolVal(self, key):
-        try: return 'selected' in self.boolIns[key].state()
-        except KeyError: pass
+    def readInputFile(self, btnKey):
+        return self.inputData.files[btnKey]
 
     #----------------------------------------------------------------
-    # Setting output widgets' default values
+    # Setting input widgets' default values
 
-    def setInputDefault(self, key, value):
-        self.inputs[key].delete(0, tk.END)
-        self.inputs[key].insert(0, value)
+    def defaultInputText(self, key, value):
+        self.inWidgets.texts[key].delete(0, tk.END)
+        self.inWidgets.texts[key].insert(0, value)
 
-    def setRadioDefault(self, groupKey, value):
-        self.radios[groupKey][value].invoke()
+    def defaultInputRadio(self, groupKey, value):
+        self.inWidgets.radios[groupKey][value].invoke()
 
-    def setFileDefault(self, key, value):
-        self.files[key] = value
-
-    def setBoolDefault(self, key, value):
-        widget = self.boolIns[key]
-        current = 'selected' in widget.state()
-        if current != value:
-            widget.invoke()
+    def defaultInputFile(self, key, value):
+        self.inputData.files[key] = value
 
     #----------------------------------------------------------------
     # Enabling / disabling input widgets
 
-    def buttonState(self, key, state):
-        try: self.buttons[key].state(['!disabled'] if state else ['disabled'])
-        except KeyError: return False
-        return True
+    def stateInputText(self, key, state):
+        self.inWidgets.texts[key]['state'] = 'normal' if state else 'disabled'
 
-    def fileButtonState(self, key, state):
-        try: self.fileButtons[key].state(['!disabled'] if state else ['disabled'])
-        except KeyError: return False
-        return True
+    def stateInputButton(self, key, state):
+        self.inWidgets.buttons[key].state(['!disabled'] if state else ['disabled'])
 
-    def inputState(self, key, state):
-        try: self.inputs[key]['state'] = 'normal' if state else 'disabled'
-        except KeyError: return False
-        return True
+    def stateInputRadio(self, groupKey, radioValue, state):
+        state = ['!disabled'] if state else ['disabled']
+        self.inWidgets.radios[groupKey][radioValue].state(state)
 
-    def radioState(self, groupKey, radioValue, state):
-        try: self.radios[groupKey][radioValue].state(['!disabled'] if state else ['disabled'])
-        except KeyError: return False
-        return True
-
-    def boxState(self, key, state):
-        try: self.boolIns[key].state(['!disabled'] if state else ['disabled'])
-        except KeyError: return False
-        return True
+    def stateInputFile(self, key, state):
+        self.inWidgets.fileSelectors[key].state(['!disabled'] if state else ['disabled'])
 
     #----------------------------------------------------------------
     # Other widgets related
@@ -169,6 +198,19 @@ class Root:
         else: raise Exception(f'Invalid file button type "{type}"')
         filename = method(*args, **kwargs).name
         if filename != '':
-            self.files[btnKey] = filename
-        else:
-            print('Invalid filename or cancelled')
+            self.inputData.files[btnKey] = filename
+        # else cancelled
+
+    def createRadioGroup(self, key, varType, command=None):
+        if varType not in ['int', 'flt', 'str']:
+            raise Exception('Parameter varType must be one of: "int" "flt" "str"')
+        if varType == 'int':   variable = tk.IntVar()
+        elif varType == 'flt': variable = tk.DoubleVar()
+        elif varType == 'str': variable = tk.StringVar()
+        group = Namespace()
+        group.variable = variable
+        group.command = command
+        self.inWidgets.radios[key] = {}
+        self.inputData.radioGroups[key] = group
+
+    #----------------------------------------------------------------

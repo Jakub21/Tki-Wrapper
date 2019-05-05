@@ -2,23 +2,23 @@ import tkinter as tk
 from TkiWrapper.namespace import Namespace
 class Grid:
     def __init__(self):
-        self.pointer = Namespace({
-            'x': 0, 'y': 0,
-            'spanX': 1, 'spanY': 1,
-        })
-        self.defaults = Namespace({
-            'marginX': 0,
-            'marginY': 0,
-            'paddingX': 0,
-            'paddingY': 0,
-        })
+        self.pointer = Namespace(
+            x = 0, y = 0,
+            spanX = 1, spanY = 1,
+        )
+        self.defaults = Namespace(
+            marginX = 0,
+            marginY = 0,
+            paddingX = 0,
+            paddingY = 0,
+        )
         self.incrementWrap = 1
 
     def resetPointer(self):
-        self.pointer = Namespace({
-            'x': 0, 'y': 0,
-            'spanX': 1, 'spanY': 1,
-        })
+        self.pointer = Namespace(
+            x = 0, y = 0,
+            spanX = 1, spanY = 1,
+        )
 
     def setPointer(self, x, y, spanX=1, spanY=1):
         self.pointer.x = x
