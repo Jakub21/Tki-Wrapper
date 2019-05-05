@@ -51,7 +51,7 @@ class Root:
         self.root.rowconfigure(0, weight=1)
 
     #----------------------------------------------------------------
-    # General window settings and appearance
+    # Root window configuration
 
     def setTitle(self, title):
         self.root.title(title)
@@ -73,6 +73,9 @@ class Root:
     #----------------------------------------------------------------
     # Adding views
 
+    def addView(self, view, key):
+        self.views[key] = view
+
     def setHeader(self, view, role='m'):
         if role not in ['m', 'd']:
             raise Exception('Invalid header role')
@@ -92,9 +95,6 @@ class Root:
             self.footerDialog = view
         view.setDisplayRow(2)
         view.setSpecial(True)
-
-    def addView(self, view, key):
-        self.views[key] = view
 
     #----------------------------------------------------------------
     # Displaying views
@@ -155,8 +155,8 @@ class Root:
     def readInputRadio(self, groupKey):
         return self.inputData.radioGroups[groupKey].variable.get()
 
-    def readInputFile(self, btnKey):
-        return self.inputData.files[btnKey]
+    def readInputFile(self, key):
+        return self.inputData.files[key]
 
     #----------------------------------------------------------------
     # Setting input widgets' default values
@@ -164,6 +164,12 @@ class Root:
     def defaultInputText(self, key, value):
         self.inWidgets.texts[key].delete(0, tk.END)
         self.inWidgets.texts[key].insert(0, value)
+
+    def defaultInputBool(self, key, value):
+        widget = self.inWidgets.bools[key]
+        current = 'selected' in widget.state()
+        if current != value:
+            widget.invoke()
 
     def defaultInputRadio(self, groupKey, value):
         self.inWidgets.radios[groupKey][value].invoke()
@@ -174,11 +180,16 @@ class Root:
     #----------------------------------------------------------------
     # Enabling / disabling input widgets
 
+    def stateButton(self, key, state):
+        self.inWidgets.buttons[key].state(['!disabled'] if state else ['disabled'])
+
     def stateInputText(self, key, state):
         self.inWidgets.texts[key]['state'] = 'normal' if state else 'disabled'
 
-    def stateInputButton(self, key, state):
-        self.inWidgets.buttons[key].state(['!disabled'] if state else ['disabled'])
+    def stateInputBool(self, key, state):
+        try: self.inWidgets.bools[key].state(['!disabled'] if state else ['disabled'])
+        except KeyError: return False
+        return True
 
     def stateInputRadio(self, groupKey, radioValue, state):
         state = ['!disabled'] if state else ['disabled']
