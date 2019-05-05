@@ -19,4 +19,4 @@ To get started with package check
 [Package Guide](docs/packageGuide.md)
 
 For list of all classes, their methods and other details see
-[Package Rerefence](docs/packageReference.md)
+[Package Rerefence](docs/referenceIndex.md)
