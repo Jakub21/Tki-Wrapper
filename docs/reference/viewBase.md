@@ -21,7 +21,7 @@ Sets expand rate weights or view's columns
 
 ### Adding static widgets
 
-##### `addLabel`
+##### `addText`
 Adds label. Label is static a text widget.
 - Parameters
     - Grid `grid` - Object of grid class
@@ -45,18 +45,12 @@ Adds horizontal separator (line).
 
 ### Adding output widgets
 
-##### `addTextOut`
+##### `addOutputText`
 Adds text output widget.
 - Parameters
     - Grid `grid` - Object of grid class
-    - str `outputKey` - Widget key
-    - int `stretch = 1` - See Other Info section
-
-##### `addBoolOut`
-Adds boolean output widget.
-- Parameters
-    - Grid `grid` - Object of grid class
-    - str `outputKey` - Widget key
+    - str `key` - Widget key
+    - str `value = ''` - Widget value
     - int `stretch = 1` - See Other Info section
 
 
@@ -66,38 +60,31 @@ Adds boolean output widget.
 Adds button widget.
 - Parameters
     - Grid `grid` - Object of grid class
-    - str `btnKey` - Widget key
+    - str `key` - Widget key
     - str `label` - Button label
     - func `onclick` - Function called on click
-    - list `args` - Args passed to `onclick` function
     - bool `enabled = True` Create enabled / disabed widget
     - int `stretch = 1` - See Other Info section
-    - `**kwargs` - Keywords passed to `onclick` function
 
-##### `addFileButton`
-Adds file button widget. File buttons open dialog in which user can select
-file, directory or unexisting file name. To get user's selection call root's
-method `getFileVal` with same key as in this method.
-- Parameters
-    - Grid `grid` - Object of grid class
-    - str `btnKey` - Widget key
-    - str `type` - Type of file dialog. More in Other Info section
-    - str `label` - Button label
-    - list `args` - Args passed to `onclick` function
-    - bool `enabled = True` Create enabled / disabed widget
-    - int `stretch = 1` - See Other Info section
-    - `**kwargs` - Keywords passed to `onclick` function
-
-##### `addInput`
+##### `addInputText`
 Adds text input widget.
 - Parameters
     - Grid `grid` - Object of grid class
-    - str `inpKey` - Widget key
+    - str `key` - Widget key
     - str `password = False` - If `True` contents will be hidden
     - bool `enabled = True` Create enabled / disabed widget
     - int `stretch = 1` - See Other Info section
 
-##### `addRadio`
+##### `addInputBool`
+Adds boolean input widget (clickable checkbox).
+- Parameters
+    - Grid `grid` - Object of grid class
+    - str `key` - Widget key
+    - str `label` - Widget label
+    - bool `enabled = True` Create enabled / disabed widget
+    - int `stretch = 1` - See Other Info section
+
+##### `addInputRadio`
 Adds radio button widget. Note that radio group has to be created first
 with `createRadioGroup` method.
 - Parameters
@@ -108,10 +95,16 @@ with `createRadioGroup` method.
     - bool `enabled = True` Create enabled / disabed widget
     - int `stretch = 1` - See Other Info section
 
-##### `addBoolIn`
-Adds boolean input widget (clickable checkbox).
+##### `addFileButton`
+Adds file button widget. File buttons open dialog in which user can select
+file, directory or unexisting file name. To get user's selection call root's
+method `getFileVal` with same key as in this method.
 - Parameters
     - Grid `grid` - Object of grid class
-    - str `boxKey` - Widget key
+    - str `key` - Widget key
+    - str `type` - Type of file dialog. More in Other Info section
+    - str `label` - Button label
+    - dict `fileParams` - Keywords passed to Tk method
+        (see `reference/other-info`)
     - bool `enabled = True` Create enabled / disabed widget
     - int `stretch = 1` - See Other Info section
