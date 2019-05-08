@@ -55,11 +55,17 @@ Adds app view.
 Add view as header. Header is always visible on top of the window.
 - Parameters
     - View `view` - View object to be added as header
+    - str `role = 'm'` - Header role (`'m'` - main, `'d'` - dialog);
+        `main header` is always displayed but if `dialog header` is set, it is
+        displayed instad when user enters dialog
 
 ##### `setFooter`
 Add view as footer. Footer is always visible on bottom of the window.
 - Parameters
     - View `view` - View object to be added as header
+    - str `role = 'm'` - Footer role (`'m'` - main, `'d'` - dialog);
+        `main footer` is always displayed but if `dialog footer` is set, it is
+        displayed instad when user enters dialog
 
 ##### `switchToView`
 Hides other views and displays one with specified key.
