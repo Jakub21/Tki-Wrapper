@@ -20,3 +20,6 @@ To get started with package check
 
 For list of all classes, their methods and other details see
 [Package Rerefence](docs/referenceIndex.md)
+
+To learn what was changed in package read
+[Changelogs](docs/packageChangelogs.md)
