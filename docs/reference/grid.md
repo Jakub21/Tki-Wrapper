@@ -8,9 +8,9 @@ All parameters set in grid object affect next added widget(s).
 
 ## Methods
 
-### Pointer auto-increment options
+### Pointer auto-increment settings
 
-##### `setIncrementWrap`
+##### `setColWrap`
 When pointer auto increment reaches some column it will automatically
 move to column 0 in the next row. This specifies the column.
 - Parameters
@@ -25,7 +25,7 @@ Recommended to use after creating view when re-using grid in other views.
 - No parameters
 
 ##### `setPointer`
-Moves pointer to position and changes span.
+Moves pointer to some absolute position and changes span.
 - Parameters
     - int `x` - Grid column to put next widget in
     - int `y` - Grid row to put next widget in
@@ -33,21 +33,22 @@ Moves pointer to position and changes span.
     - int `spanY = 1` - Vertical span
 
 ##### `setSpan`
-Changes span.
+Changes span of next added element.
 - Parameters
     - int `spanX = 1` - Horizontal span
     - int `spanY = 1` - Vertical span
 
 ##### `newLine`
-Move pointer to column 0 of the row below
+Move pointer 1 row down to first column
 - No parameters
 
-##### `shiftX`
-Move pointer to the right (Auto wrap enabled)
+##### `shift`
+Move pointer to the right by some amount of cells (Auto wrap enabled)
 - Parameters
     - int `amount = 1` - Amount of steps
 
-### Setting default parameters
+
+### Default margin settings
 
 ##### `setMargin`
 Sets default widget outer margin

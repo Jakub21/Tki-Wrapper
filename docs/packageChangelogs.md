@@ -2,16 +2,18 @@
 
 ### Version `0.3`
 - Class `Root`
-    - Calling methods with invalid widget key will now raise an error.
-    - Some methods were renamed to be more memorable.
+    - Calling methods with invalid widget key will now raise an error
+    - Some methods were renamed to be more memorable
     - Added method `createRadioGroup`
+- Class `Grid`
+    - Some methods were renamed to be more memorable
 - Added Class `ViewBase`
     - This class exists for inheritance purposes, no instances should be created
     - Most contents of the `View` class were moved to this one
 - Class `View`
     - Class now inherits from new class `ViewBase`
-    - Removed `widgets` member variable. It was not utilized.
-    - Some methods were renamed to be more memorable.
+    - Removed `widgets` member variable, it was not utilized
+    - Some methods were renamed to be more memorable
     - Removed method `addWidget`
     - Removed method `createRadioGroup`
     - Added method `addDialog`

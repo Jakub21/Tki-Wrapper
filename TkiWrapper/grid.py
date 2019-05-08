@@ -12,7 +12,18 @@ class Grid:
             paddingX = 0,
             paddingY = 0,
         )
-        self.incrementWrap = 1
+        self.colWrap = 1
+
+    #----------------------------------------------------------------
+    # Pointer auto-increment settings
+
+    def setColWrap(self, width):
+        '''Pointer auto increment only works if no element has spanY more than 1
+        This may be repaired if project is not dumped'''
+        self.colWrap = width
+
+    #----------------------------------------------------------------
+    # Widget pointer manipulation
 
     def resetPointer(self):
         self.pointer = Namespace(
@@ -34,16 +45,14 @@ class Grid:
         self.pointer.x = 0
         self.pointer.y += 1
 
-    def shiftX(self, amount=1):
+    def shift(self, amount=1):
         self.pointer.x += amount
-        if self.pointer.x >= self.incrementWrap:
+        if self.pointer.x >= self.colWrap:
             self.pointer.x = 0
             self.pointer.y += 1
 
-    def setIncrementWrap(self, width):
-        '''Pointer auto increment only works if no element has spanY more than 1
-        This may be repaired if project is not dumped'''
-        self.incrementWrap = width
+    #----------------------------------------------------------------
+    # Default margin settings
 
     def setMargin(self, x, y):
         self.defaults.marginX = x
@@ -52,6 +61,9 @@ class Grid:
     def setPadding(self, x, y):
         self.defaults.paddingX = x
         self.defaults.paddingY = y
+
+    #----------------------------------------------------------------
+    # Class internal utilities
 
     def getParams(self, stretch=0, **kwargs):
         result = {
@@ -79,7 +91,7 @@ class Grid:
 
     def incrementPointer(self):
         self.pointer.x += self.pointer.spanX
-        if self.pointer.x >= self.incrementWrap:
+        if self.pointer.x >= self.colWrap:
             self.pointer.x = 0
             self.pointer.y += 1
         self.pointer.spanX = 1
