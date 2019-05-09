@@ -80,7 +80,7 @@ Adds boolean input widget (clickable checkbox).
 - Parameters
     - Grid `grid` - Object of grid class
     - str `key` - Widget key
-    - str `label` - Widget label
+    - str `label = ''` - Widget label
     - bool `enabled = True` Create enabled / disabed widget
     - int `stretch = 1` - See Other Info section
 

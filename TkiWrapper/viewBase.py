@@ -82,7 +82,7 @@ class ViewBase:
         widget.grid(**grid.getParams(stretch))
         self.root.inWidgets.texts[key] = widget
 
-    def addInputBool(self, grid, key, label, enabled=True, stretch=1):
+    def addInputBool(self, grid, key, label='', enabled=True, stretch=1):
         widget = ttk.Checkbutton(self.frame, text=label)
         widget.state(['!alternate'])
         widget.state(['!disabled'] if enabled else ['disabled'])
