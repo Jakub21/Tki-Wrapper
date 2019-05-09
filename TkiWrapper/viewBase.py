@@ -102,7 +102,7 @@ class ViewBase:
         self.root.inWidgets.radios[groupKey][value] = widget
 
     def addInputFile(self, grid, key, type, label, fileParams={}, enabled=True, stretch=1):
-        onclick = lambda: self.root.onFileButton(btnKey, type, **fileParams)
+        onclick = lambda: self.root.onFileButton(key, type, **fileParams)
         widget = ttk.Button(self.frame, text=label, command=onclick)
         widget.state(['!disabled'] if enabled else ['disabled'])
         widget.grid(**grid.getParams(stretch))
