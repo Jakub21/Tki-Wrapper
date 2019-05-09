@@ -182,6 +182,14 @@ class Root:
         if current != value:
             widget.invoke()
 
+    def defaultInputCombo(self, key, value):
+        widget = self.inWidgets.combos[key]
+        meta = self.inputData.combos[key]
+        if not meta.allowUnlisted and value not in meta.values:
+            raise IndexError(f'Value "{value}" was not found in allowed list')
+        widget.delete(0, tk.END)
+        widget.insert(0, value)
+
     def defaultInputRadio(self, groupKey, value):
         self.inWidgets.radios[groupKey][value].invoke()
 
