@@ -1,5 +1,15 @@
 # Changelogs
 
+### Version `0.3.1`
+- Added widget `ComboBox` (wrapper around `ttk.Combobox`)
+- Class `ViewBase`
+    - Add method `addInputCombo` which creates a ComboBox widget
+    - Repair bug in `addInputFile` method
+    - In method `addInputBool` parameter `label` has now default value `''`
+- Class `Root`
+    - Add method `readInputCombo` which returns value of a ComboBox widget
+    - Add method `defaultInputCombo` which sets default value of a ComboBox widget
+
 ### Version `0.3`
 - Class `Root`
     - Calling methods with invalid widget key will now raise an error
