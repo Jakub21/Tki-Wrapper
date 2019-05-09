@@ -98,6 +98,13 @@ Returns value of boolean input widget.
 - Returns
     - bool - Boolean chosen by user
 
+#### `readInputCombo`
+Returns value of ComboBox widget.
+- Parameter
+    - str `key` - Widget's key
+- Returns
+    - str - Selected / typed value
+
 ##### `readInputRadio`
 Returns value of radio buttons group.
 - Parameters
@@ -126,6 +133,12 @@ Sets default value of input widget.
 - Parameters
     - str `key` - Widget's key
     - bool `value` - Selected or unselected
+
+##### `defaultInputCombo`
+Sets default value of input widget.
+- Parameter
+    - str `key` - Widget's key
+    - str `value` - Value to put in widget
 
 ##### `defaultInputRadio`
 Sets default value of input widget.

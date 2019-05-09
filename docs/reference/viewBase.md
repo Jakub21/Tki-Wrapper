@@ -84,6 +84,18 @@ Adds boolean input widget (clickable checkbox).
     - bool `enabled = True` Create enabled / disabed widget
     - int `stretch = 1` - See Other Info section
 
+##### `addInputCombo`
+Adds ComboBox widget. This widget consists of text entry field and a drop-down menu.
+User can choose one of the options from menu or type value into entry field.
+- Parameters
+    - Grid `grid` - Object of grid class
+    - str `key` - Widget's key
+    - list `values` - Values to put in drop-down menu.
+    - bool `allowUnlisted = False` Allow user to type in value that is not
+        in list of values
+    - bool `enabled = True` Create enabled / disabed widget
+    - int `stretch = 1` - See Other Info section
+
 ##### `addInputRadio`
 Adds radio button widget. Note that radio group has to be created first
 with `createRadioGroup` method.
