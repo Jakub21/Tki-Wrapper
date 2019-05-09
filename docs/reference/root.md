@@ -96,7 +96,7 @@ Returns value of boolean input widget.
 - Parameters
     - str `key` - Widget's key
 - Returns
-    - str - Boolean chosen by user
+    - bool - Boolean chosen by user
 
 ##### `readInputRadio`
 Returns value of radio buttons group.
