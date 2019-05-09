@@ -12,6 +12,7 @@ class Root:
         self.inWidgets = Namespace(
             texts = {},
             bools = {},
+            combos = {},
             buttons = {},
             radios = {},
             fileSelectors = {},
@@ -20,8 +21,9 @@ class Root:
             texts = {},
         )
         self.inputData = Namespace(
-            files = {},
+            combos = {},
             radioGroups = {},
+            files = {},
         )
 
     #----------------------------------------------------------------
@@ -151,6 +153,15 @@ class Root:
 
     def readInputBool(self, key):
         return 'selected' in self.inWidgets.bools[key].state()
+
+    def readInputCombo(self, key):
+        meta = self.inputData.combos[key]
+        if meta.allowUnlisted:
+            return self.inWidgets.combos[key].get()
+        else:
+            index = self.inWidgets.combos[key].current()
+            if index == -1: raise IndexError('Invalid Choice')
+            return meta.values[index]
 
     def readInputRadio(self, groupKey):
         return self.inputData.radioGroups[groupKey].variable.get()

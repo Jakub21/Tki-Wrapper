@@ -89,6 +89,16 @@ class ViewBase:
         widget.grid(**grid.getParams(stretch))
         self.root.inWidgets.bools[key] = widget
 
+    def addInputCombo(self, grid, key, values, allowUnlisted=False, enabled=True, stretch=1):
+        widget = ttk.Combobox(self.frame, values=values, exportselection=0)
+        widget.state(['!disabled'] if enabled else ['disabled'])
+        widget.grid(**grid.getParams(stretch))
+        self.root.inWidgets.combos[key] = widget
+        self.root.inputData.combos[key] = Namespace(
+            allowUnlisted = allowUnlisted,
+            values=values,
+        )
+
     def addInputRadio(self, grid, groupKey, value, label, enabled=True, stretch=1):
         try: group = self.root.inputData.radioGroups[groupKey]
         except KeyError:
