@@ -14,7 +14,7 @@ All parameters set in grid object affect next added widget(s).
 When pointer auto increment reaches some column it will automatically
 move to column 0 in the next row. This specifies the column.
 - Parameters
-    - int `width` - Amount of columns to wrap at
+    - `int width` - Amount of columns to wrap at
 
 
 ### Widget pointer manipulation
@@ -27,16 +27,16 @@ Recommended to use after creating view when re-using grid in other views.
 ##### `setPointer`
 Moves pointer to some absolute position and changes span.
 - Parameters
-    - int `x` - Grid column to put next widget in
-    - int `y` - Grid row to put next widget in
-    - int `spanX = 1` - Horizontal span
-    - int `spanY = 1` - Vertical span
+    - `int x` - Grid column to put next widget in
+    - `int y` - Grid row to put next widget in
+    - `int spanX = 1` - Horizontal span
+    - `int spanY = 1` - Vertical span
 
 ##### `setSpan`
 Changes span of next added element.
 - Parameters
-    - int `spanX = 1` - Horizontal span
-    - int `spanY = 1` - Vertical span
+    - `int spanX = 1` - Horizontal span
+    - `int spanY = 1` - Vertical span
 
 ##### `newLine`
 Move pointer 1 row down to first column
@@ -45,7 +45,7 @@ Move pointer 1 row down to first column
 ##### `shift`
 Move pointer to the right by some amount of cells (Auto wrap enabled)
 - Parameters
-    - int `amount = 1` - Amount of steps
+    - `int amount = 1` - Amount of steps
 
 
 ### Default margin settings
@@ -53,11 +53,11 @@ Move pointer to the right by some amount of cells (Auto wrap enabled)
 ##### `setMargin`
 Sets default widget outer margin
 - Parameters
-    - int `x` - Horizontal margin
-    - int `y` - Vertical margin
+    - `int x` - Horizontal margin
+    - `int y` - Vertical margin
 
 ##### `setPadding`
 Sets default widget inner margin (padding)
 - Parameters
-    - int `x` - Horizontal padding
-    - int `y` - Vertical padding
+    - `int x` - Horizontal padding
+    - `int y` - Vertical padding
