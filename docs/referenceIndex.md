@@ -42,3 +42,15 @@ Buttons onclicks call functions from `tkinter.filedialog` module.
 - `openFName` button calls `askopenfilename` function
 - `saveAsFName` button calls `asksaveasfilename` function
 - `directory` button calls `askdirectory` function
+
+##### List Widget parameter `selMode`
+This parameter determines which and how many lines user can select.
+This parameter also changes how widget responds to mouse drag.
+- `browse` (defalut) - User can only select one line.
+    When dragging, selection folows the mouse.
+- `single` - User can only select one line. Dragging is disabled.
+- `multiple` - User can select multiple lines by clicking on them.
+    Dragging is disabled.
+- `extended` - User can select multiple lines that are adjacent to each other.
+    When dragging, selection extends from where button was pressed
+    to current position.
