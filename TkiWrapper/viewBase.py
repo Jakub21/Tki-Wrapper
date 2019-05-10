@@ -99,6 +99,20 @@ class ViewBase:
             values=values,
         )
 
+    def addInputList(self, grid, key, values, selMode='browse', enabled=True, stretch=1):
+        state = 'normal' if enabled else 'disabled'
+        selMode = {
+            'browse': tk.BROWSE,
+            'single': tk.SINGLE,
+            'multiple': tk.MULTIPLE,
+            'extended': tk.EXTENDED,
+        }[selMode]
+        widget = tk.Listbox(self.frame, font=('Courier New', 12),
+            state=state, selectmode=selMode)
+        widget.insert(0, *values)
+        widget.grid(**grid.getParams(stretch))
+        self.root.inWidgets.lists[key] = widget
+
     def addInputRadio(self, grid, groupKey, value, label, enabled=True, stretch=1):
         try: group = self.root.inputData.radioGroups[groupKey]
         except KeyError:

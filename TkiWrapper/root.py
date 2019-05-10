@@ -13,6 +13,7 @@ class Root:
             texts = {},
             bools = {},
             combos = {},
+            lists = {},
             buttons = {},
             radios = {},
             fileSelectors = {},
@@ -162,6 +163,11 @@ class Root:
             index = self.inWidgets.combos[key].current()
             if index == -1: raise IndexError('Invalid Choice')
             return meta.values[index]
+
+    def readInputList(self, key):
+        widget = self.inWidgets.lists[key]
+        selection = list(widget.curselection())
+        return [widget.get(i) for i in selection]
 
     def readInputRadio(self, groupKey):
         return self.inputData.radioGroups[groupKey].variable.get()
