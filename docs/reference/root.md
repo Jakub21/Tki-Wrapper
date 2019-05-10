@@ -98,12 +98,19 @@ Returns value of boolean input widget.
 - Returns
     - bool - Boolean chosen by user
 
-#### `readInputCombo`
+##### `readInputCombo`
 Returns value of ComboBox widget.
-- Parameter
+- Parameters
     - str `key` - Widget's key
 - Returns
     - str - Selected / typed value
+
+##### `readInputList`
+Returns all selected lines of a List widget.
+- Parameters
+    - str `key` - Widget's key
+- Returns
+    - list - List of selected lines
 
 ##### `readInputRadio`
 Returns value of radio buttons group.

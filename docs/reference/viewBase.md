@@ -96,6 +96,16 @@ User can choose one of the options from menu or type value into entry field.
     - bool `enabled = True` Create enabled / disabed widget
     - int `stretch = 1` - See Other Info section
 
+##### `addInputList`
+Adds a List widget. This widget in a list of text lines that can be selected by user.
+- Parameters
+    - Grid `grid` - Object of grid class
+    - str `key` - Widget's key
+    - list `values` - List of string lines to put in widget
+    - str `selMode` - Selection mode. See Other Info section
+    - bool `enabled = True` Create enabled / disabed widget
+    - int `stretch = 1` - See Other Info section
+
 ##### `addInputRadio`
 Adds radio button widget. Note that radio group has to be created first
 with `createRadioGroup` method.
