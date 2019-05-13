@@ -15,6 +15,7 @@ but can be found hopeful in understanding some features.
 - [`Class ViewBase`](reference/viewBase.md)
     - [`Class View`](reference/view.md)
     - [`Class Dialog`](reference/dialog.md)
+- [`Class Style`](reference/style.md)
 - [`Class Grid`](reference/grid.md)
 
 
