@@ -26,6 +26,7 @@ class Root:
             radioGroups = {},
             files = {},
         )
+        self.style = None
 
     #----------------------------------------------------------------
     # General core methods

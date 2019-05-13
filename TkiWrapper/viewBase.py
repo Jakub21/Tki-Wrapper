@@ -77,8 +77,12 @@ class ViewBase:
     def addInputText(self, grid, key, password=False, enabled=True, stretch=1):
         show = '*' if password else ''
         state = 'normal' if enabled else 'disabled'
-        widget = tk.Entry(self.frame, font=('Courier New', 12), show=show,
-            disabledbackground='#AAA', state=state)
+        style = self.root.style
+        if style is None:
+            raise Exception('Please apply style to root first')
+        font = (style.fontFam.mono, style.fontSize['textInput'])
+        widget = tk.Entry(self.frame, font=font, show=show,
+            disabledbackground=style.colors.disabled, state=state)
         widget.grid(**grid.getParams(stretch))
         self.root.inWidgets.texts[key] = widget
 
@@ -107,8 +111,11 @@ class ViewBase:
             'multiple': tk.MULTIPLE,
             'extended': tk.EXTENDED,
         }[selMode]
-        widget = tk.Listbox(self.frame, font=('Courier New', 12),
-            state=state, selectmode=selMode)
+        style = self.root.style
+        if style is None:
+            raise Exception('Please apply style to root first')
+        font = (style.fontFam.mono, style.fontSize['listInput'])
+        widget = tk.Listbox(self.frame, font=font, state=state, selectmode=selMode)
         widget.insert(0, *values)
         widget.grid(**grid.getParams(stretch))
         self.root.inWidgets.lists[key] = widget
