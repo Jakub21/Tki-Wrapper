@@ -4,268 +4,164 @@ TkiWrapper package guide.
 This section describes how to start project that utilizes this package.
 Knowledge of Python 3 is assumed.
 
-Attached screenshots were made on Windows.
+Attached screenshots were made on Windows 10.
 
-### Creating app base
-This code creates Hello World app that will be further developed.
+
+
+## Creating Hello World App
+
+#### Creating app core
+In this section I will show you how to create the most basic app with my package.
+
+In this guide I assume package was imported with the following call
 ```python
 import TkiWrapper as tkw
+```
 
+To start an App a few objects will be required. The first one is a `root`.
+`Root` class manages window properties and widget data
+but this will be explained later.
+
+Also note that later a `root` object will have to be accessible from various
+event based functions. To do that you have to wrap your whole app
+in a class or make `root` a global variable.
+In this guide I try not to keep things simple so I will implement latter solution.
+
+Additionally everything will be split into functions so when I change
+pieces of code later in guide I don't have to paste the whole thing here over and over.
+
+Defining `createRoot` function
+```python
+def createRoot():
+    global root                 # Making root a global variable
+    root = tkw.Root()           # Creating root instance
+    root.setTitle('Basic App')  # Setting window title
+    root.setMinSize(250, 250)   # Setting minimum window size to w=250px, h=250px
+```
+
+At this point the app should be an empty window.
+To test how it looks just call function in standard pythonic "if main".
+
+To actually see the window and be able to interact with it a run loop is required.
+Run loop is a loop that breaks when user leaves the app and updates `ROOT` object
+in each increment.
+
+You can put additional code in the loop if you want something to be
+done when the app is running.
+
+Adding `createRoot` call and creating run loop.
+```python
 if __name__ == '__main__':
-    root = tkw.Root() # Create app root
-    root.setTitle('My First App')
-
-    grid = tkw.Grid() # Grid object for managing widget positions
-    grid.setIncrementWrap(1) # Widgets will occupy only 1 column
-
-    header = tkw.View(root) # Create header view
-    root.setHeader(header) # Add header to root
-    header.addHeading(grid, 'My First App', level=1) # Add lv.1 heading to header
-    header.addSeparator(grid)
-    grid.resetPointer() # Do this if this grid will be used in another view
-
-    footer = tkw.View(root) # Create footer view
-    root.setFooter(footer) # Add footer to root
-    footer.addSeparator(grid)
-    footer.addLabel(grid, 'Created by me, just now. Version 1') # Add static text
-    grid.resetPointer() # Do this if this grid will be used in another view
-
-    view1 = tkw.View(root) # Create center-frame view
-    root.addView(view1, 'home') # Add view under "home" key
-    view1.addHeading(grid, 'Hello World') # Default heading level is 2
-
-    root.showView('home') # Start app with this view shown
-
-    while not root.leave:
+    createRoot()                # Creating and configuring root
+    while not root.leave:       # Creating a run loop (note that root is a global)
+        # put additional code here
         root.update()
-        # A loop like this will continue unless app is closed
-        # or user presses Ctrl-C in console in which code was executed
-        # You can add other things your app should do every frame
 ```
 
-![Screenshot](screenshots/screenshot1_1.PNG)
+When this code is executed something like this should appear.  
+![Screenshot](screenshots/guide_1_1win.png)
 
-This app lacks styling, configuration of expansion weights and many more to look good.
-Unfortunatelly **styling wrapper is not yet done** and usage of raw TkInter styles is required.
 
-Copy and paste this function (preferably in separate file to avoid spaghetti)
-and call it after root object is created and configured.
 
-I will not explain what this code does because it's plain TkInter.
-Additionally I'm planning to add wrapper to styles so this will be eventually replaced.
+#### Introducing styles
+Another element of the package required to run the app is a `style` object.
+`Style` class manages app and widgets appearance.
 
+Note that with out this it is impossible to add some types with out any styles
+so please do not skip this part.
+
+Creating `STYLE` instance and applying default styles to `ROOT`
 ```python
-from tkinter import ttk
-
-def styleWidgets():
-    background = '#242932'
-    foreground = '#FFFFFF'
-    fontFamNormal = 'Verdana'
-    fontFamMonospace = 'Courier New'
-    fontLabel = 11
-    fontOutput = 12
-    fontButton = 10
-    fontRadio = 11
-    fontHeading3 = 15
-    fontHeading2 = 20
-    fontHeading1 = 25
-    style = ttk.Style()
-    style.theme_use('vista')
-    style.configure('TFrame',
-        background=background)
-    style.configure('TLabel',
-        background=background, foreground=foreground,
-        font=(fontFamNormal, fontLabel))
-    style.configure('heading1.TLabel',
-        font=(fontFamNormal, fontHeading1))
-    style.configure('heading2.TLabel',
-        font=(fontFamNormal, fontHeading2))
-    style.configure('heading3.TLabel',
-        font=(fontFamNormal, fontHeading3))
-    style.configure('output.TLabel',
-        font=('Courier New', fontOutput))
-    style.configure('TButton',
-        background=background, width=11, font=(fontFamNormal, fontButton))
-    style.configure('TRadiobutton',
-        background=background, foreground=foreground,
-        font=(fontFamNormal, fontRadio))
-    style.configure('TCheckbutton',
-        background=background, foreground=foreground)
-    style.configure('TSeparator',
-        background=background, foreground=foreground)
+def createStyle():
+    style = tkw.Style()         # Create style instance
+    style.useTheme('vista')     # Use tkinter's vista as default theme
+    style.apply(root)           # Apply styles to root
 ```
 
-![Screenshot](screenshots/screenshot1_2.PNG)
-
-Styles were added. Execute the code again, check results.
-
-
-### Improving the app
-The next step is to add more widgets and see how expansion weights affect the app.
-I will also split up the code info functions to avoid pasting the came code multiple times.
-
-Note that root variable was made global. Root will have to be accessible
-from every place so either make it a global or use OOP and make root a member of
-some application class.
-
+Adding `createStyle` call in "if main"
 ```python
-import TkiWrapper as tkw
-
-# replace "style" with name of file with styling function
-from style import styleWidgets
-
-def createHeader(root):
-    '''Create and fill header view'''
-    grid = tkw.Grid()
-    header = tkw.View(root)
-    header.setColWeights(1)
-    root.setHeader(header)
-    header.addHeading(grid, 'My First App', level=1)
-    header.addSeparator(grid)
-
-def createFooter(root):
-    '''Create and fill footer view'''
-    grid = tkw.Grid()
-    footer = tkw.View(root)
-    footer.setColWeights(1)
-    root.setFooter(footer)
-    footer.addSeparator(grid)
-    footer.addLabel(grid, 'Created by me, just now. Version 1.1')
-    grid.resetPointer()
-
-def createHomeView(root):
-    grid = tkw.Grid()
-    view = tkw.View(root)
-    view.setColWeights(1)
-    root.addView(view, 'home')
-    view.addHeading(grid, 'Hello World')
-
 if __name__ == '__main__':
-    global root
-    root = tkw.Root()
-    root.setTitle('My First App')
-    styleWidgets()
-
-    createHeader(root)
-    createFooter(root)
-    createHomeView(root)
-    root.showView('home')
-
+    createRoot()
+    createStyle()               # Creating and configuring styles
     while not root.leave:
         root.update()
 ```
 
-![Screenshot](screenshots/screenshot2.PNG)
+This code should produce the following window.  
+![Screenshot](screenshots/guide_1_2win.png)
 
-This code creates much better looking application.
-Still, there is not much content in there.
+As you can see not much changes. In our `createStyle` function we only
+initialized `Style` object and set default theme
+but styling options will be described later in guide when widgets are present.
 
 
-### Creating interactive app
-In next step I will create something more interactive.
-There will be an input field, output text and a button.
-Pressing a button will read contents of input field, reverse it and paste in output.
 
-First, create required widgets in `home` view.
+#### Introducing views
+`View` class objects can actually be displayed on screen.
+When widgets are created, they are added to `view` objects.
+
+The `root` window has 3 slots for views: `Header`, `Main View` and `Footer`.
+You can add views to these slots.
+
+Let's define function that creates a basic empty view.
 
 ```python
-def createHomeView(root):
-    grid = tkw.Grid()
-    grid.setMargin(5, 5) # Add margin to widgets for better appearance
-    grid.setIncrementWrap(2) # Widgets automatically occupy 2 columns
+def createViewA():
+    view = tkw.View(root)       # Create view object
+    root.addView(view, 'viewA') # Add view to root under "viewA" key.
+```
+
+The `root`'s method `addView` we just called adds view to `Main view` slot.
+Well, not actually adds. `Root` class has a dictionary of views and what actually
+happened was out view was added to this dictionary.
+That's why this method requires a key parameter to add views.
+
+To show our view on screen we have to call `root.switchToView` method.
+This method hides all views that were added to `Main View` slot and shows
+only view with key that we passed.
+
+Adding `switchToView` call.
+```python
+if __name__ == '__main__':
+    createRoot()
+    createStyle()
+    createViewA()               # Create and fill view "viewA"
+    root.switchToView('viewA')  # Switch to view added with key "viewA"
+    while not root.leave:
+        root.update()
+```
+
+Since our view is empty this code produces the same result as previous one.
+This will change in next section.
+
+
+
+#### Grid class, adding widgets
+This section describes how to add widgets to views.
+
+To add widgets a `grid` object is required.
+This object manages position and span of all widgets.
+
+`Grid` has a pointer that selects grid cell in which widget will be placed.
+The pointer automatically changes position every time a widget is added.
+This means that in simplest apps you don't have to
+do anything but initialize the object.
+
+`Grid` has methods which modify behaviour of pointer auto-increment
+and position of pointer itself but they will not be used in this section.
+
+After `grid` is created widgets can be added.
+This is done with `view`'s methods.
+
+Creating `grid` object, adding heading and text.
+```python
+def createViewA():
     view = tkw.View(root)
-    view.setColWeights(1, 1) # Columns #0 and #1 will expand in same rates
-    root.addView(view, 'home')
-    view.addHeading(grid, 'Reverser')
-    grid.newLine() # Move widget position pointer to next line, to column #0
-    view.addInput(grid, 'textInput') # Add input widget
-    view.addButton(grid, 'reverser', 'Reverse!', onClickReverse) # Add button
-        # Parameters are: Widget key, button label and on-click function
-    view.addTextOut(grid, 'textOutput') # Add output widget
+    grid = tkw.Grid()           # Create grid object
+    root.addView(view, 'viewA')
+
+    view.addHeading(grid, 'View A Title', 2)
+    # Create lv. 2 heading in position pointed by the grid
+    view.addText(grid, 'Short program description')
+    # Create static text in position pointed by the grid
 ```
-
-Then define function that was passed in `addButton` function.
-
-```python
-def onClickReverse():
-    global root
-    text = root.getInputVal('textInput')[::-1] # Read text and reverse it
-    root.setOutputText('textOutput', text) # Put text in output widget
-```
-
-![Screenshot](screenshots/screenshot3.PNG)
-
-As you can see reading and writting values to widgets is very easy.
-You have to remember what keys you typed in adding function.
-Then just ask root for the values.
-
-
-### Adding multiple views
-Last thing in this guide is adding more views.
-If another view was added and shown it would appear in place of our `home` view
-defined before. First I will add buttons in header that are linked to function
-that changes currently shown view.
-
-```python
-def createHeader(root):
-    '''Create and fill header view'''
-    grid = tkw.Grid()
-    grid.setMargin(5, 5)
-    grid.setIncrementWrap(2)
-    grid.setSpan(3)
-    header = tkw.View(root)
-    root.setHeader(header)
-    header.setColWeights(1, 1, 1)
-    header.addHeading(grid, 'My First App', level=1)
-    grid.newLine() # Go to next row, column #0
-    header.addButton(grid, 'viewHome', 'Home', root.showView, ['home'])
-    header.addButton(grid, 'viewSettings', 'Settings', root.showView, ['settings'])
-    grid.newLine() # Go to next row, column #0
-    grid.setSpan(3)
-    header.addSeparator(grid)
-```
-
-Then define function that creates `settings` view.
-Remember to call it in `if __name__ == '__main__'` section, just under `createHomeView()`
-with root argument.
-
-```python
-def createSettingsView(root):
-    grid = tkw.Grid()
-    grid.setMargin(5, 5)
-    grid.setIncrementWrap(3)
-    view = tkw.View(root)
-    root.addView(view, 'settings')
-    view.addLabel(grid, 'Label 0')
-    view.addLabel(grid, 'Label 1')
-    view.addLabel(grid, 'Label 2')
-    view.addLabel(grid, 'Label 3')
-    view.addLabel(grid, 'Label 4')
-    view.addLabel(grid, 'Label 5')
-```
-
-![Screenshot](screenshots/screenshot4_1.PNG)
-
-![Screenshot](screenshots/screenshot4_2.PNG)
-
-There is not much content in there, just some placeholder labels.
-You can check how it works now.
-
-
-### Window size
-When switching views you can note that
-window will always resize to minimum size that is required by widgets.
-You can set minimum size yourself to avoid this behaviour.
-
-This can be done by adding this line just below root title is defined.
-```python
-root.setMinSize(350, 250) # Minimum size is 350px width and 250px height
-```
-
-![Screenshot](screenshots/screenshot5.PNG)
-
-### Conclusion
-The package offers much more complex functionalities.
-This guide could be much longer but these basics will get you started.
-For more details check Reference section.
-It contains list of all classes, their methods and parameters.
