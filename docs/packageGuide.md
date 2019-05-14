@@ -165,3 +165,6 @@ def createViewA():
     view.addText(grid, 'Short program description')
     # Create static text in position pointed by the grid
 ```
+
+Execute the script and a window that looks like this should appear.  
+![Screenshot](screenshots/guide_1_3win.png)
