@@ -1,8 +1,10 @@
 # Package Guide
 TkiWrapper package guide.
 
-This section describes how to start project that utilizes this package.
+This document describes how to start project that utilizes this package.
 Knowledge of Python 3 is assumed.
+
+Last updated for package version `0.4`
 
 Attached screenshots were made on Windows 10.
 
@@ -106,9 +108,9 @@ You can add views to these slots.
 Let's define function that creates a basic empty view.
 
 ```python
-def createViewA():
+def createView1():
     view = tkw.View(root)       # Create view object
-    root.addView(view, 'viewA') # Add view to root under "viewA" key.
+    root.addView(view, 'view_1st') # Add view to root under "view_1st" key.
 ```
 
 The `root`'s method `addView` we just called adds view to `Main view` slot.
@@ -125,8 +127,8 @@ Adding `switchToView` call.
 if __name__ == '__main__':
     createRoot()
     createStyle()
-    createViewA()               # Create and fill view "viewA"
-    root.switchToView('viewA')  # Switch to view added with key "viewA"
+    createView1()               # Create and fill view "view_1st"
+    root.switchToView('view_1st') # Switch to view added with key "view_1st"
     while not root.leave:
         root.update()
 ```
@@ -136,11 +138,79 @@ This will change in next section.
 
 
 
-#### Grid class, adding widgets
-This section describes how to add widgets to views.
+#### Adding static widgets
+This section describes how to add static widgets to views.
 
-To add widgets a `grid` object is required.
-This object manages position and span of all widgets.
+To add a widget just call view's method with `add` prefixes.
+
+Adding header, text and separator widgets.
+```python
+def createView1():
+    view = tkw.View(root)
+    root.addView(view, 'view_1st')
+
+    view.addHeading('View A Title', 2) # Create lv. 2 heading
+    view.addText('Short program description') # Create static text
+    view.addSeparator()
+```
+
+Execute the script and a window that looks like this should appear.  
+![Screenshot](screenshots/guide_1_3win.png)
+
+For widget costumization and detailed settings check the reference.
+
+
+
+#### Adding interactive widgets
+This section describes how to add input and output widgets to views.
+
+Interactive widgets require The key to be added.
+A key must be variable that can be used as key of dictionary.
+Note that key of a widget must be unique within widget type.
+
+Adding text input, text output and a button.
+```python
+def createView1():
+    view = tkw.View(root)
+    root.addView(view, 'view_1st')
+
+    view.addHeading('View A Title', 2)
+    view.addText('Short program description')
+    view.addSeparator()
+    view.addInputText('1-1') # Adding input text field with key "1-1"
+    view.addOutputText('1-1') # Adding output text field with key "1-1"
+    view.addButton('1-1', 'Confirm', confirm)
+    # Adding button with key "1-1", label "Confirm"
+    # When button is pressed function confirm() will be called
+```
+
+Reading contents of input widgets and changing contents of outputs is made through
+`root`'s methods. In the code above you can see a button received a `onclick` function
+that will be called when it's pressed. Let's define this function now.
+
+This function will read contents of text input `'1-1'` and paste it to output `'1-1'`.
+Note that there is no key conflict because those widgets are of different types.
+If they were of the same type there would be a conflict and things would not work
+as expected.
+
+Defining `onclick` function of button `'1-1'`
+```python
+def confirm():
+    text = root.readInputText('1-1')
+    root.setOutputText('1-1', text)
+```
+
+This code should produce window that looks like this one.  
+![Screenshot](screenshots/guide_1_4Awin.png)
+![Screenshot](screenshots/guide_1_4Bwin.png)
+
+
+
+## Customization
+
+#### Positioners
+This section describes positioner objects.
+Positioner manages position and span of all widgets.
 
 `Grid` has a pointer that selects grid cell in which widget will be placed.
 The pointer automatically changes position every time a widget is added.
@@ -150,21 +220,7 @@ do anything but initialize the object.
 `Grid` has methods which modify behaviour of pointer auto-increment
 and position of pointer itself but they will not be used in this section.
 
-After `grid` is created widgets can be added.
-This is done with `view`'s methods.
-
-Creating `grid` object, adding heading and text.
-```python
-def createViewA():
-    view = tkw.View(root)
-    grid = tkw.Grid()           # Create grid object
-    root.addView(view, 'viewA')
-
-    view.addHeading(grid, 'View A Title', 2)
-    # Create lv. 2 heading in position pointed by the grid
-    view.addText(grid, 'Short program description')
-    # Create static text in position pointed by the grid
-```
-
-Execute the script and a window that looks like this should appear.  
-![Screenshot](screenshots/guide_1_3win.png)
+By default each view has a `grid` object assigned as its positioner.
+You can change that by passing other object in `view`'s constructor
+or using `View.setPositioner` method. Note that package does not include
+other types of positioners and to do that you would have to write one yourself.
