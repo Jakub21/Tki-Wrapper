@@ -4,6 +4,7 @@ Inherits from [`Class ViewBase`](`viewBase.md`).
 ## Constructor
 - Parameters
     - `Root root` - App's root window
+    - `obj positioner = None` - Widget positioner
 
 ## Methods
 
