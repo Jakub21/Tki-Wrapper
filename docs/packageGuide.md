@@ -184,7 +184,7 @@ def createView1():
     # When button is pressed function confirm() will be called
 ```
 
-Reading contents of input widgets and changing contents of outputs is made through
+Reading contents of input widgets and changing contents of outputs is done through
 `root`'s methods. In the code above you can see a button received a `onclick` function
 that will be called when it's pressed. Let's define this function now.
 
