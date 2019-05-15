@@ -1,5 +1,23 @@
 # Changelogs
 
+### Version `0.4`
+**15 May 2019**
+- Added Class `Style`
+    - Wrapper of `ttk.Style`
+    - Manages appearance of both `Tk` and `TTK` widgets
+- Class `ViewBase`
+    - Methods that create widgets no longer require `grid` parameter.
+        Widgets are positioned according to new `ViewBase`'s attribute: positioner.
+    - Added method `setPositioner` that is used to change view's positioner.
+    - Added optional constructor parameter: `positioner`.
+        To make view use other positioner than grid pass the positioner object here.
+- Class `View`
+    - Added optional constructor parameter: `positioner` (passed to `ViewBase`).
+- Class `Dialog`
+    - Added optional constructor parameter: `positioner` (passed to `ViewBase`).
+- Class `Root` was modified to use new `Style` class but its API did not change
+- Updated Package Guide
+
 #### Version `0.3.2`
 **10 May 2019**
 - Added widget `List` (wrapper around `tkinter.Listbox`)
