@@ -1,7 +1,7 @@
 from TkiWrapper.viewBase import ViewBase
 
 class Dialog(ViewBase):
-    def __init__(self, root, positioner):
+    def __init__(self, root, positioner=None):
         super().__init__(root, positioner)
         self.endProtocol = None
 

@@ -2,7 +2,7 @@ from tkinter import N, S, E, W
 from TkiWrapper.viewBase import ViewBase
 
 class View(ViewBase):
-    def __init__(self, root, positioner):
+    def __init__(self, root, positioner=None):
         super().__init__(root, positioner)
         self.showMode = 0 # 0 to show self, dialog key to show dialog
 
