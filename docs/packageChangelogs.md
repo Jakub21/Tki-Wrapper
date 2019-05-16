@@ -1,7 +1,7 @@
 # Changelogs
 
 ### Version `0.4`
-**15 May 2019**
+**16 May 2019**
 - Added Class `Style`
     - Wrapper of `ttk.Style`
     - Manages appearance of both `Tk` and `TTK` widgets
