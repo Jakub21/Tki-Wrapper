@@ -17,6 +17,7 @@ but can be found hopeful in understanding some features.
     - [`Class Dialog`](reference/dialog.md)
 - [`Class Style`](reference/style.md)
 - [`Class Grid`](reference/grid.md)
+- [`Class Canvas`](reference/canvas.md)
 
 
 ## Other Info
