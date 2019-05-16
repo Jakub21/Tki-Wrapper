@@ -26,6 +26,7 @@ class Root:
             radioGroups = {},
             files = {},
         )
+        self.canvases = []
         self.style = None
 
     #----------------------------------------------------------------

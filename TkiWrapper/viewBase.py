@@ -151,3 +151,10 @@ class ViewBase:
         self.root.inWidgets.fileSelectors[key] = widget
 
     #----------------------------------------------------------------
+    # Canvas related
+
+    def addCanvas(self, canvas, stretch=2):
+        canvas.canvas.grid(**self.positioner.getParams(stretch))
+        self.root.canvases.append(canvas) # keep reference
+
+    #----------------------------------------------------------------
