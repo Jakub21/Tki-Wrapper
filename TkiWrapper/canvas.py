@@ -38,21 +38,29 @@ class Canvas:
         for obj in self.objects:
             obj.method(*obj.args, **obj.kwargs)
 
+    def clear(self):
+        self.objects = []
 
     #----------------------------------------------------------------
     # Adding Low-level Elements
 
     def addLine(self, *args, color=None, **kwargs):
         '''Adds line to object that will be drawn'''
-        kwargs['color'] = color = self.color if color is None else color
+        kwargs['color'] = self.color if color is None else color
         self.objects.append(Namespace(
             method=self.drawLine, args=args, kwargs=kwargs))
 
     def addPoint(self, *args, color=None, **kwargs):
         '''Adds point to object that will be drawn'''
-        kwargs['color'] = color = self.color if color is None else color
+        kwargs['color'] = self.color if color is None else color
         self.objects.append(Namespace(
             method=self.drawPoint, args=args, kwargs=kwargs))
+
+    def addCustom(self, obj, *args, color=None, **kwargs):
+        '''Adds custom object with specific interface to draw list'''
+        kwargs['color'] = self.color if color is None else color
+        args = [self] + list(args)
+        self.objects.append(Namespace(method=obj.draw, args=args, kwargs=kwargs))
 
     #----------------------------------------------------------------
     # Drawing Elements
@@ -146,9 +154,7 @@ class Canvas:
         cnvWidth, cnvHeight = self._getSelfSize()
         xScale, yScale = self._calcScale(max)
         x, y = point[0] * xScale, point[1] * yScale
-        if self.scaleAnchor == 'CENTER':
-            x += (cnvWidth - xScale*self.WIDTH) / 2
-            y += (cnvHeight - xScale*self.HEIGHT) / 2
+        x, y = self._applyAnchor((x, y), xScale)
         return x, y
 
     def _scaleRatio(self, point):
@@ -168,7 +174,7 @@ class Canvas:
         xyScale = cnvWidth / self.HEIGHT
         yyScale = cnvHeight / self.HEIGHT
         xScale = comprator(yyScale, xyScale/aspect)
-        yScale = comprator(xxScale/aspect, yxScale)
+        yScale = comprator(xxScale, yxScale*aspect)
         return xScale, yScale
 
     def _applyAnchor(self, point, scale):

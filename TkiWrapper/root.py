@@ -26,7 +26,7 @@ class Root:
             radioGroups = {},
             files = {},
         )
-        self.canvases = []
+        self.canvases = {}
         self.style = None
 
     #----------------------------------------------------------------
@@ -250,5 +250,8 @@ class Root:
         group.command = command
         self.inWidgets.radios[key] = {}
         self.inputData.radioGroups[key] = group
+
+    def getCanvas(self, key):
+        return self.canvases[key]
 
     #----------------------------------------------------------------
