@@ -1,5 +1,21 @@
 # Changelogs
 
+### Version `0.5`
+**XX May 2019**
+- Added sub-package `canvas`
+- Sub package Canvas:
+    - Updated class `Canvas`
+    - Added class `Point` used to perform calculations related with
+        canvas geometry
+    - Added class `Element` that represents element added to canvas to display.
+    - Added class `Line` that inherits from `Element`
+    - Added class `Circle` that inherits from `Element`
+    - Added class `Vector` that inherits from `Line`
+    - Added class `Image` that represents image added to canvas to display.
+        This class has multiple creator methods that allow creation images
+        from file, `PIL` Image or `cv2` image.
+- Moved class `Canvas` to sub-package
+
 ### Version `0.4`
 **16 May 2019**
 - Added Class `Style`
