@@ -14,8 +14,6 @@ class ViewBase:
         self.displayRow = 1
         self.isSpecial = False
         self.dialogs = {}
-        self.inputTextWidgets = []
-        self.frame.bind('<Configure>', self._dynamicInputTextResize)
 
     #----------------------------------------------------------------
     # Appearance
@@ -96,13 +94,8 @@ class ViewBase:
         font = (style.fontFam.mono, style.fontSize['textInput'])
         widget = tk.Entry(self.frame, font=font, show=show,
             disabledbackground=style.colors.disabled, state=state)
-        positionerParams = self.positioner.getParams(stretch)
-        widget.grid(**positionerParams)
+        widget.grid(**self.positioner.getParams(stretch))
         self.root.inWidgets.texts[key] = widget
-        # Add to inputText dynamic resize system
-        cell = positionerParams['column'], positionerParams['row']
-        self.inputTextWidgets.append(Namespace(widget=widget,cell=cell,key=key))
-        return widget # TEMP
 
     def addInputBool(self, key, label='', enabled=True, stretch=1):
         widget = ttk.Checkbutton(self.frame, text=label)
@@ -163,18 +156,5 @@ class ViewBase:
     def addCanvas(self, key, canvas, stretch=2):
         canvas.canvas.grid(**self.positioner.getParams(stretch))
         self.root.canvases[key] = canvas
-
-    #----------------------------------------------------------------
-    # Automatic widget configuration
-
-    def _dynamicInputTextResize(self, evt):
-        CHAR_WIDTH = 10
-        for entry in self.inputTextWidgets:
-            widget = entry.widget
-            cell = entry.cell
-            w, n, _, _ = self.frame.grid_bbox(cell[0], cell[1])
-            e, s, _, _ = self.frame.grid_bbox(cell[0]+1, cell[1]+1)
-            width = (e - w) // CHAR_WIDTH
-            widget.configure(width=width-3)
 
     #----------------------------------------------------------------
