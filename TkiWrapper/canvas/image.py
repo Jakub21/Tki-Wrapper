@@ -1,5 +1,7 @@
 import tkinter as tk
-from PIL import Image, ImageTk
+from PIL import Image as PImage
+from PIL import ImageTk
+import cv2
 from TkiWrapper.canvas.point import Point
 
 class Image:
@@ -27,6 +29,7 @@ class Image:
     @classmethod
     def fromCv2(cls, image, anchor=(0, 0)):
         obj = cls.__new__(cls)
-        obj.image = ImageTk.PhotoImage(image=Image.fromarray(image))
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        obj.image = ImageTk.PhotoImage(image=PImage.fromarray(image))
         obj.anchor = Point(*anchor)
         return obj
