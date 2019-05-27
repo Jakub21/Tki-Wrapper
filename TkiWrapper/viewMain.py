@@ -16,7 +16,7 @@ class View(ViewBase):
             super().show()
             if not self.isSpecial: self.root.dialogMode(False)
         else:
-            self.dialogs[self.showMode].show()
+            self.dialogs[self.showMode].show(self.displaySlot)
             if not self.isSpecial: self.root.dialogMode(True)
 
     #----------------------------------------------------------------

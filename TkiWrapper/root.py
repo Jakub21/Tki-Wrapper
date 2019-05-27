@@ -28,6 +28,7 @@ class Root:
         )
         self.canvases = {}
         self.style = None
+        self.occupiedColumns = 1
 
     #----------------------------------------------------------------
     # General core methods
@@ -78,7 +79,9 @@ class Root:
     #----------------------------------------------------------------
     # Adding views
 
-    def addView(self, view, key):
+    def addView(self, view, key, slot=0):
+        self.occupiedColumns = max(slot+1, self.occupiedColumns)
+        view.setDisplaySlot(slot)
         self.views[key] = view
 
     def setHeader(self, view, role='m'):
@@ -105,9 +108,11 @@ class Root:
     # Displaying views
 
     def switchToView(self, key):
+        current = self.views[key]
         for k, view in self.views.items():
-            view.hide()
-        self.views[key].show()
+            if view.displaySlot == current.displaySlot:
+                view.hide()
+        current.show()
         self.currentView = key
 
     def dialogMode(self, state):
