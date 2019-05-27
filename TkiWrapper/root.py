@@ -76,6 +76,10 @@ class Root:
         self.backFrame.rowconfigure(1, weight=content)
         self.backFrame.rowconfigure(2, weight=footer)
 
+    def setSlotsWeights(self, *weights):
+        for index, weight in enumerate(weights):
+            self.backFrame.columnconfigure(index, weight=weight)
+
     #----------------------------------------------------------------
     # Adding views
 
