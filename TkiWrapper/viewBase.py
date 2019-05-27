@@ -13,6 +13,7 @@ class ViewBase:
         self.frame = ttk.Frame(root.backFrame)
         self.displayRow = 1
         self.displaySlot = None
+        self.fixedSize = 0, 0
         self.isSpecial = False
         self.dialogs = {}
 
@@ -26,6 +27,9 @@ class ViewBase:
     def setColWeights(self, *weights):
         for col, weight in enumerate(weights):
             self.frame.columnconfigure(col, weight=weight)
+
+    def setFixedSize(self, width, height):
+        self.fixedSize = width, height
 
     #----------------------------------------------------------------
     # Displaying, view type and role
@@ -41,6 +45,10 @@ class ViewBase:
             if displaySlot is None: displaySlot = self.displaySlot
             self.frame.grid(column=displaySlot, row=self.displayRow,
                 sticky=(tk.N, tk.S, tk.E, tk.W))
+        if self.fixedSize != (0, 0):
+            self.frame.grid_propagate(False)
+            width, height = self.fixedSize
+            self.frame.configure(width=width, height=height)
 
     def setDisplayRow(self, row):
         '''Called by root when assigned as header or footer'''
