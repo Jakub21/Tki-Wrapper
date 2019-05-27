@@ -3,7 +3,7 @@ from PIL import Image, ImageTk
 from TkiWrapper.canvas.point import Point
 
 class Image:
-    def __init__(self, path, anchor):
+    def __init__(self, path, anchor=(0, 0)):
         self.image = ImageTk.PhotoImage(file=path)
         self.anchor = Point(*anchor)
     def reInit(self, canvas):
@@ -18,14 +18,14 @@ class Image:
             anchor.get(), image=self.image, anchor=anchorMode)
 
     @classmethod
-    def fromPil(cls, image, anchor):
+    def fromPil(cls, image, anchor=(0, 0)):
         obj = cls.__new__(cls)
         obj.image = ImageTk.PhotoImage(image=image)
         obj.anchor = Point(*anchor)
         return obj
 
     @classmethod
-    def fromCv2(cls, image, anchor):
+    def fromCv2(cls, image, anchor=(0, 0)):
         obj = cls.__new__(cls)
         obj.image = ImageTk.PhotoImage(image=Image.fromarray(image))
         obj.anchor = Point(*anchor)
