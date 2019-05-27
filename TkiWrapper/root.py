@@ -36,6 +36,8 @@ class Root:
     def update(self):
         if not self.leave:
             self.root.update()
+        for cnv in self.canvases.values():
+            cnv.postDrawUpdate()
 
     def quit(self):
         self.root.destroy()

@@ -39,6 +39,8 @@ class Canvas:
             obj.draw()
         for obj in self.nonPersistent:
             obj.draw()
+
+    def postDrawUpdate(self):
         self.nonPersistent = []
 
     #----------------------------------------------------------------
