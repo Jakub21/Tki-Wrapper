@@ -1,6 +1,9 @@
 from TkiWrapper.root import Root
-from TkiWrapper.viewMain import View
-from TkiWrapper.viewDialog import Dialog
+from TkiWrapper.views import View, HeaderView, FooterView
+from TkiWrapper.widgets import *
 from TkiWrapper.style import Style
-from TkiWrapper.grid import Grid
-from TkiWrapper.namespace import Namespace
+from TkiWrapper.menu import Menu
+import TkiWrapper.positioners as positioners
+import TkiWrapper.widgets as widgets
+import TkiWrapper.canvas as canvas
+from TkiWrapper.config import config, configToPrintable, conf as __conf__
