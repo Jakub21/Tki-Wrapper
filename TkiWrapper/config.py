@@ -14,7 +14,7 @@ conf = Namespace(
   VIEW_COL_WEIGHTS = [],
   # Style class default properties
   STYLE = Namespace(
-    THEME = 'vista', # TTK Theme
+    THEME = 'default', # TTK Theme
     BTN_WIDTH = None, # Button fixed width (None for non-fixed)
     FC_LABEL_MARGIN = 4, # FileChoice widget's label's horizontal margin
     # Font size
