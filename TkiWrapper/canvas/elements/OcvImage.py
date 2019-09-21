@@ -13,4 +13,4 @@ except ImportError:
   if not conf.WARNINGS_SILENCED:
     print('[TkiWrapper]: OpenCV is not installed,' + \
       'canvas.elements.OcvImage will not be available')
-  class Ocvimage: pass
+  class OcvImage: pass
