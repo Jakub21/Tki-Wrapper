@@ -29,6 +29,12 @@ class ViewCore(Logger):
     self.setColWeights(*conf.VIEW_COL_WEIGHTS)
     self.shown = False
 
+  def __enter__(self):
+    return self
+
+  def __exit__(self, *args):
+    pass
+
   #----------------------------------------------------------------
   # User methods
 
