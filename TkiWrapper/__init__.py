@@ -1,5 +1,5 @@
 from TkiWrapper.root import Root
-from TkiWrapper.views import View, HeaderView, FooterView
+from TkiWrapper.views import View, HeaderView, FooterView, ScrollableView
 from TkiWrapper.widgets import *
 from TkiWrapper.style import Style
 from TkiWrapper.menu import Menu

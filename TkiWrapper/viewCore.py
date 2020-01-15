@@ -43,8 +43,8 @@ class ViewCore(Logger):
       self.holder.rowconfigure(row, weight=weight)
 
   def setColWeights(self, *weights):
-    for row, weight in enumerate(weights):
-      self.holder.columnconfigure(row, weight=weight)
+    for col, weight in enumerate(weights):
+      self.holder.columnconfigure(col, weight=weight)
 
   def setFixedSize(self, width, height):
     self.fixedSize = width, height
