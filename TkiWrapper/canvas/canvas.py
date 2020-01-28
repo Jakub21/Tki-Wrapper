@@ -6,10 +6,10 @@ from TkiWrapper.canvas.color import Color
 from TkiWrapper.namespace import Namespace
 
 class Canvas(Widget):
-  def __init__(self, view, key, size, sticky='LRH'):
+  def __init__(self, view, key, size, sticky='LRH', **kwargs):
     super().__init__(view, key)
     self.sticky = sticky
-    self.canvas = tk.Canvas(view.holder, highlightthickness=0)
+    self.canvas = tk.Canvas(view.holder, highlightthickness=0, **kwargs)
     self.widget = self.canvas # alias for compatibility with class Widget
     self.place()
     self.canvas.config(
