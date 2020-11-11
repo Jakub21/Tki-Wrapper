@@ -1,9 +1,12 @@
-from TkiWrapper.root import Root
-from TkiWrapper.views import View, HeaderView, FooterView, ScrollableView
-from TkiWrapper.widgets import *
-from TkiWrapper.style import Style
-from TkiWrapper.menu import Menu
-import TkiWrapper.positioners as positioners
-import TkiWrapper.widgets as widgets
-import TkiWrapper.canvas as canvas
-from TkiWrapper.config import config, configToPrintable, conf as __conf__
+# Application root
+from TkiWrapper.Root import Root
+# Content frames
+from TkiWrapper.FrameSimple import FrameSimple
+from TkiWrapper.FrameScrollable import FrameScrollable
+# Misc
+from TkiWrapper.Settings import *
+from TkiWrapper.Point import Point
+# Modules
+import Widgets
+import Positioners
+import Canvas
